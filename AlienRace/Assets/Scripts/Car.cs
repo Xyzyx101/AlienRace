@@ -22,8 +22,9 @@ public class Car : MonoBehaviour
     public float StabilizationAmount;
 
     public Transform COG;
+    public Vector3 AeroDynamicResistance;
 
-    private HumanController Controller;
+    private Controller Controller;
     private Rigidbody RB;
     private List<CarForce> Forces;
 
@@ -100,21 +101,38 @@ public class Car : MonoBehaviour
             }
         }
 
-        // Normalized Up Force
-        float upForceTotal = 0;
-        // The normailzed force is calculated assuming Forces only has the engine forces in it so far
-        for (int i = 0; i < Forces.Count; ++i)
+
+
+        Ray groundTouchRay = new Ray(transform.position, -Vector3.up);
+        RaycastHit groundHit;
+        if (Physics.Raycast(groundTouchRay, out groundHit, 3, groundMask))
         {
-            upForceTotal += Vector3.Dot(Forces[i].Force, transform.up);
+            Debug.DrawLine(groundTouchRay.origin, groundHit.point, Color.blue);
+            // Normalized Up Force
+            float upForceTotal = 0;
+            // The normailzed force is calculated assuming Forces only has the engine forces in it so far
+            for (int i = 0; i < Forces.Count; ++i)
+            {
+                upForceTotal += Vector3.Dot(Forces[i].Force, transform.up);
+            }
+            float upForceMag = Mathf.Clamp(NormalizedUpForce - upForceTotal, 0, NormalizedUpForce);
+            Forces.Add(new CarForce(Vector3.up * upForceMag, transform.position));
+
+            // Main Engine Thrust
+            float forwardForce = MainThrustForce * moveVector.z;
+            Forces.Add(new CarForce(transform.forward * forwardForce, COG.position));
         }
 
-        float upForceMag = Mathf.Clamp(NormalizedUpForce - upForceTotal, 0, NormalizedUpForce);
-        Forces.Add(new CarForce(Vector3.up * upForceMag, transform.position));
-
-        // Main Engine Thrust
-        float forwardForce = MainThrustForce * moveVector.z;
-        Debug.Log(forwardForce);
-        Forces.Add(new CarForce(transform.forward * forwardForce, COG.position));
+        // Aerodynamic Force
+        float forwardVelocity = Vector3.Dot(RB.velocity, transform.forward);
+        float rightVelocity = Vector3.Dot(RB.velocity, transform.right);
+        float upVelocity = Vector3.Dot(RB.velocity, transform.up);
+        Vector3 resistance =
+            -transform.forward * Mathf.Sign(forwardVelocity) * forwardVelocity * forwardVelocity * AeroDynamicResistance.z +
+            -transform.right * Mathf.Sign(rightVelocity) * rightVelocity * rightVelocity * AeroDynamicResistance.x +
+            -transform.up * Mathf.Sign(upVelocity) * upVelocity * upVelocity * AeroDynamicResistance.y;
+        Forces.Add(new CarForce(resistance, COG.position));
+        Debug.DrawRay(transform.position + Vector3.up * 2, 0.01f * resistance);
     }
 
     void FixedUpdate()
