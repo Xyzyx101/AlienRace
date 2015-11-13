@@ -30,7 +30,7 @@ public class Car : MonoBehaviour
 
     void Start()
     {
-        Controller = GetComponent<HumanController>();
+        Controller = GetComponent<Controller>();
         RB = GetComponent<Rigidbody>();
         RB.centerOfMass = COG.localPosition;
         AllEngines = new List<Transform>(FrontEngines.Length + BackEngines.Length);
@@ -77,11 +77,11 @@ public class Car : MonoBehaviour
         backSidewaysTilt = Mathf.LerpAngle(currentBackTilt.z, backSidewaysTilt, EngineTiltSpeed * Time.deltaTime);
         for (int i = 0; i < FrontEngines.Length; ++i)
         {
-            FrontEngines[i].transform.localRotation = Quaternion.Euler(forwardTilt + Random.value * 2 - 1f, 0f, frontSidewaysTilt + Random.value * 2 - 1f);
+            FrontEngines[i].transform.localRotation = Quaternion.Euler(forwardTilt + Random.value * 2 - 1f, 0f, frontSidewaysTilt + Random.value * 10 - 5f);
         }
         for (int i = 0; i < BackEngines.Length; ++i)
         {
-            BackEngines[i].transform.localRotation = Quaternion.Euler(forwardTilt + Random.value * 2 - 1f, 0f, backSidewaysTilt + Random.value * 2 - 1f);
+            BackEngines[i].transform.localRotation = Quaternion.Euler(forwardTilt + Random.value * 2 - 1f, 0f, backSidewaysTilt + Random.value * 10 - 5f);
         }
 
         // Engine Forces
@@ -93,7 +93,7 @@ public class Car : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 10, groundMask))
             {
-                Debug.DrawLine(ray.origin, hit.point, Color.blue);
+                //Debug.DrawLine(ray.origin, hit.point, Color.blue);
                 Vector3 point = AllEngines[i].position;
                 float forceMag = EngineForce * 1f / (hit.distance * hit.distance);
                 Vector3 force = AllEngines[i].up * forceMag;
@@ -107,7 +107,7 @@ public class Car : MonoBehaviour
         RaycastHit groundHit;
         if (Physics.Raycast(groundTouchRay, out groundHit, 3, groundMask))
         {
-            Debug.DrawLine(groundTouchRay.origin, groundHit.point, Color.blue);
+            //Debug.DrawLine(groundTouchRay.origin, groundHit.point, Color.blue);
             // Normalized Up Force
             float upForceTotal = 0;
             // The normailzed force is calculated assuming Forces only has the engine forces in it so far
@@ -132,7 +132,7 @@ public class Car : MonoBehaviour
             -transform.right * Mathf.Sign(rightVelocity) * rightVelocity * rightVelocity * AeroDynamicResistance.x +
             -transform.up * Mathf.Sign(upVelocity) * upVelocity * upVelocity * AeroDynamicResistance.y;
         Forces.Add(new CarForce(resistance, COG.position));
-        Debug.DrawRay(transform.position + Vector3.up * 2, 0.01f * resistance);
+        //Debug.DrawRay(transform.position + Vector3.up * 2, 0.01f * resistance);
     }
 
     void FixedUpdate()
@@ -141,14 +141,14 @@ public class Car : MonoBehaviour
         {
             Vector3 point = transform.TransformPoint(Forces[i].Point);
             RB.AddForceAtPosition(Forces[i].Force, Forces[i].Point, ForceMode.Force);
-            Debug.DrawRay(Forces[i].Point, Forces[i].Force * 0.002f, Color.red, Time.fixedDeltaTime);
+            //Debug.DrawRay(Forces[i].Point, Forces[i].Force * 0.002f, Color.red, Time.fixedDeltaTime);
         }
         Quaternion stable = Quaternion.LookRotation(StabilizationVector, Vector3.up);
         Quaternion newRot = Quaternion.Lerp(transform.rotation, stable, StabilizationAmount * Time.fixedDeltaTime);
         RB.MoveRotation(newRot);
 
-        Debug.DrawRay(transform.position, 5f * transform.forward, Color.green);
-        Debug.DrawRay(transform.position, 5f * StabilizationVector, Color.yellow);
+        //Debug.DrawRay(transform.position, 5f * transform.forward, Color.green);
+        //Debug.DrawRay(transform.position, 5f * StabilizationVector, Color.yellow);
     }
 
 }

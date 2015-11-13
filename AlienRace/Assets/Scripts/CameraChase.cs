@@ -43,6 +43,5 @@ public class CameraChase : MonoBehaviour
 
         float FOVTarget = FOVMin + (FOVMax - FOVMin) * Mathf.Clamp01(speed / SpeedRange);
         thisCamera.fieldOfView = Mathf.Lerp(thisCamera.fieldOfView, FOVTarget, FOVLerp * Time.deltaTime);
-        Debug.Log(FOVTarget);
     }
 }
