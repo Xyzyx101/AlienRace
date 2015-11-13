@@ -39,6 +39,3 @@ public class AIController : Controller
         FacingAxis = Mathf.Clamp(deltaAngle, -MaxTurnAngle, MaxTurnAngle) / MaxTurnAngle;
     }
 }
-
-// MoveVector
-// FacingAxis

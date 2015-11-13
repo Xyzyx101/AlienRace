@@ -20,6 +20,7 @@ public class Car : MonoBehaviour
     public float TurnAmount;
     public Vector3 StabilizationVector;
     public float StabilizationAmount;
+    private Vector3 StabilizationNormal;
 
     public Transform COG;
     public Vector3 AeroDynamicResistance;
@@ -45,6 +46,7 @@ public class Car : MonoBehaviour
         Forces = new List<CarForce>(6);
 
         StabilizationVector = transform.forward - (Vector3.Dot(transform.forward, Vector3.up) * Vector3.up);
+        Frozen();
     }
 
     void Update()
@@ -65,9 +67,6 @@ public class Car : MonoBehaviour
         backSidewaysTilt += turnAngle;
         frontSidewaysTilt = Mathf.Clamp(frontSidewaysTilt, -TiltFrontMaxAngle, TiltSidewaysMaxAngle);
         backSidewaysTilt = Mathf.Clamp(backSidewaysTilt, -TiltSidewaysMaxAngle, TiltSidewaysMaxAngle);
-
-        float stabilizationTurn = Controller.GetFacingAxis() * TurnAmount * Time.deltaTime;
-        StabilizationVector = Quaternion.AngleAxis(stabilizationTurn, Vector3.up) * StabilizationVector;
 
         // Apply Tilt
         Vector3 currentFrontTilt = FrontEngines[0].transform.localRotation.eulerAngles;
@@ -98,6 +97,12 @@ public class Car : MonoBehaviour
                 float forceMag = EngineForce * 1f / (hit.distance * hit.distance);
                 Vector3 force = AllEngines[i].up * forceMag;
                 Forces.Add(new CarForce(force, point));
+
+                // Stabilization
+                float stabilizationTurn = Controller.GetFacingAxis() * TurnAmount * Time.deltaTime;
+                StabilizationVector = Quaternion.AngleAxis(stabilizationTurn, Vector3.up) * StabilizationVector;
+                StabilizationNormal = hit.normal;
+
             }
         }
 
@@ -143,7 +148,7 @@ public class Car : MonoBehaviour
             RB.AddForceAtPosition(Forces[i].Force, Forces[i].Point, ForceMode.Force);
             //Debug.DrawRay(Forces[i].Point, Forces[i].Force * 0.002f, Color.red, Time.fixedDeltaTime);
         }
-        Quaternion stable = Quaternion.LookRotation(StabilizationVector, Vector3.up);
+        Quaternion stable = Quaternion.LookRotation(StabilizationVector, StabilizationNormal);
         Quaternion newRot = Quaternion.Lerp(transform.rotation, stable, StabilizationAmount * Time.fixedDeltaTime);
         RB.MoveRotation(newRot);
 
@@ -151,6 +156,15 @@ public class Car : MonoBehaviour
         //Debug.DrawRay(transform.position, 5f * StabilizationVector, Color.yellow);
     }
 
+    public void Frozen()
+    {
+        RB.constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+    public void Mobile()
+    {
+        RB.constraints = RigidbodyConstraints.None;
+    }
 }
 
 public struct CarForce
