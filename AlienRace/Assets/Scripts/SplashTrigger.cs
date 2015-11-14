@@ -7,7 +7,6 @@ public class SplashTrigger : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Splash" + other.transform.position);
         Instantiate(SplashPrefab, other.transform.position, Quaternion.identity);
     }
 }

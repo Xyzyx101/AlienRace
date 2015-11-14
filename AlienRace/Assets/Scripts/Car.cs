@@ -95,7 +95,6 @@ public class Car : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 10, groundMask))
             {
-                //Debug.DrawLine(ray.origin, hit.point, Color.blue);
                 Vector3 point = AllEngines[i].position;
                 float forceMag = EngineForce * 1f / (hit.distance * hit.distance);
                 Vector3 force = AllEngines[i].up * forceMag;
@@ -112,7 +111,6 @@ public class Car : MonoBehaviour
         RaycastHit groundHit;
         if (Physics.Raycast(groundTouchRay, out groundHit, 3f, groundMask))
         {
-            //Debug.DrawLine(groundTouchRay.origin, groundHit.point, Color.blue);
             // Normalized Up Force
             float upForceTotal = 0;
             // The normailzed force is calculated assuming Forces only has the engine forces in it so far
@@ -139,23 +137,17 @@ public class Car : MonoBehaviour
             -transform.right * Mathf.Sign(rightVelocity) * rightVelocity * rightVelocity * AeroDynamicResistance.x +
             -transform.up * Mathf.Sign(upVelocity) * upVelocity * upVelocity * AeroDynamicResistance.y;
         Forces.Add(new CarForce(resistance, COG.position));
-        //Debug.DrawRay(transform.position + Vector3.up * 2, 0.01f * resistance);
     }
 
     void FixedUpdate()
     {
         for (int i = 0; i < Forces.Count; ++i)
         {
-            Vector3 point = transform.TransformPoint(Forces[i].Point);
             RB.AddForceAtPosition(Forces[i].Force, Forces[i].Point, ForceMode.Force);
-            //Debug.DrawRay(Forces[i].Point, Forces[i].Force * 0.002f, Color.red, Time.fixedDeltaTime);
         }
         Quaternion stable = Quaternion.LookRotation(StabilizationVector, StabilizationNormal);
         Quaternion newRot = Quaternion.Lerp(transform.rotation, stable, StabilizationAmount * Time.fixedDeltaTime);
         RB.MoveRotation(newRot);
-
-        //Debug.DrawRay(transform.position, 5f * transform.forward, Color.green);
-        //Debug.DrawRay(transform.position, 5f * StabilizationVector, Color.yellow);
     }
 
     public void Frozen()

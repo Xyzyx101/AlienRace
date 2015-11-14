@@ -24,7 +24,7 @@ public class RaceManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void StartRace()
@@ -40,18 +40,18 @@ public class RaceManager : MonoBehaviour
     {
         for (int i = 0; i < data.Length; ++i)
         {
-            if(data[i].Tag == CarTag)
+            if (data[i].Tag == CarTag)
             {
-                if(data[i].PassedCheckpoint + 1 == Checkpoint)
+                if (data[i].PassedCheckpoint + 1 == Checkpoint)
                 {
                     data[i].PassedCheckpoint = Checkpoint;
                     Debug.Log(CarTag + " passed checkpoint " + Checkpoint);
                 }
-                if(data[i].PassedCheckpoint == Checkpoints.Length)
+                if (data[i].PassedCheckpoint == Checkpoints.Length)
                 {
                     data[i].LapsComplete++;
                     float lapTime = Time.time - StartRaceTime;
-                    for(int j = 0; i<data[j].LapTimes.Count; ++j)
+                    for (int j = 0; j < data[i].LapTimes.Count; ++j)
                     {
                         lapTime -= data[i].LapTimes[j];
                     }
@@ -59,7 +59,7 @@ public class RaceManager : MonoBehaviour
                     data[i].PassedCheckpoint = 0;
                     Debug.Log(CarTag + "completed lap " + data[i].LapsComplete + " in " + ParseTime(lapTime));
                 }
-                if(data[i].LapsComplete == Laps)
+                if (data[i].LapsComplete == Laps)
                 {
                     data[i].TotalTime = Time.time - StartRaceTime;
                     Debug.Log(CarTag + " completed race in " + ParseTime(data[i].TotalTime));
