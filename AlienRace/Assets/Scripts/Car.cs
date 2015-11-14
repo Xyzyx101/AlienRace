@@ -25,6 +25,8 @@ public class Car : MonoBehaviour
     public Transform COG;
     public Vector3 AeroDynamicResistance;
 
+    public ParticleSystem SplashParticles;
+
     private Controller Controller;
     private Rigidbody RB;
     private List<CarForce> Forces;
@@ -47,6 +49,7 @@ public class Car : MonoBehaviour
 
         StabilizationVector = transform.forward - (Vector3.Dot(transform.forward, Vector3.up) * Vector3.up);
         Frozen();
+        SplashParticles.enableEmission = false;
     }
 
     void Update()
@@ -85,7 +88,7 @@ public class Car : MonoBehaviour
 
         // Engine Forces
         Forces.Clear();
-        LayerMask groundMask = LayerMask.GetMask(new string[] { "Ground" });
+        LayerMask groundMask = LayerMask.GetMask(new string[] { "Ground", "Water" });
         for (int i = 0; i < AllEngines.Count; ++i)
         {
             Ray ray = new Ray(AllEngines[i].position, -AllEngines[i].up);
@@ -102,15 +105,12 @@ public class Car : MonoBehaviour
                 float stabilizationTurn = Controller.GetFacingAxis() * TurnAmount * Time.deltaTime;
                 StabilizationVector = Quaternion.AngleAxis(stabilizationTurn, Vector3.up) * StabilizationVector;
                 StabilizationNormal = hit.normal;
-
             }
         }
 
-
-
         Ray groundTouchRay = new Ray(transform.position, -Vector3.up);
         RaycastHit groundHit;
-        if (Physics.Raycast(groundTouchRay, out groundHit, 3, groundMask))
+        if (Physics.Raycast(groundTouchRay, out groundHit, 3f, groundMask))
         {
             //Debug.DrawLine(groundTouchRay.origin, groundHit.point, Color.blue);
             // Normalized Up Force
@@ -126,6 +126,8 @@ public class Car : MonoBehaviour
             // Main Engine Thrust
             float forwardForce = MainThrustForce * moveVector.z;
             Forces.Add(new CarForce(transform.forward * forwardForce, COG.position));
+
+            SplashParticles.enableEmission = groundHit.collider.tag == "PitWater";
         }
 
         // Aerodynamic Force
