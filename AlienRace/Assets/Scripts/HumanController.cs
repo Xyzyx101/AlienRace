@@ -9,6 +9,22 @@ public class HumanController : Controller
     public float CapsuleRadius;
     public float CapsuleDistance;
 
+    public RepairBotSpawn RepairBot;
+    public float MaxStuckTime;
+    public float StuckTime;
+    public float StuckDistanceSqr;
+    private Vector3 LastPosition;
+    private bool RepairBotComing;
+
+    private Rigidbody RB;
+
+    void Start()
+    {
+        RB = GetComponent<Rigidbody>();
+        LastPosition = transform.position;
+        StuckTime = 20f;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -43,6 +59,28 @@ public class HumanController : Controller
             Debug.DrawRay(transform.position + 2f * Vector3.up, transform.forward * forwardDeceleration + transform.right * horizontalMove, Color.blue, Time.deltaTime);
         }
 
+        // Stuck Timer
+        if ((transform.position - LastPosition).sqrMagnitude > StuckDistanceSqr)
+        {
+            StuckTime = MaxStuckTime;
+            LastPosition = transform.position;
+            RepairBotComing = false;
+        }
+        else
+        {
+            StuckTime -= Time.deltaTime;
+            if (StuckTime < 0f && RepairBotComing == false)
+            {
+                RepairBot.CallStuckWhatsit(gameObject);
+                RepairBotComing = true;
+            }
+        }
+
+        // Ugly Hack to fic falling off the map
+        if (transform.position.y < -10f)
+        {
+            RB.velocity = Vector3.zero;
+        }
 
     }
 }

@@ -17,6 +17,13 @@ public class AIController : Controller
     public float CapsuleRadius;
     public float CapsuleDistance;
 
+    public RepairBotSpawn RepairBot;
+    public float MaxStuckTime;
+    public float StuckTime;
+    public float StuckDistanceSqr;
+    private Vector3 LastPosition;
+    private bool RepairBotComing;
+
     private Rigidbody RB;
     private bool SlowMode;
     private float SlowTarget;
@@ -26,6 +33,9 @@ public class AIController : Controller
     {
         RB = GetComponent<Rigidbody>();
         SlowMode = false;
+        RepairBotComing = false;
+        LastPosition = transform.position;
+        StuckTime = 20f;
     }
 
     // Update is called once per frame
@@ -86,7 +96,7 @@ public class AIController : Controller
         float combinedSideways = Mathf.Clamp(horizontalMove + correctionMove, -1f, 1f);
         MoveVector = new Vector3(combinedSideways, 0f, combinedForward);
 
-        
+
         if (SlowMode && Vector3.Dot(RB.velocity, transform.forward) > SlowTarget)
         {
             MoveVector.z = -1f;
@@ -97,6 +107,29 @@ public class AIController : Controller
         }
         Debug.DrawRay(transform.position + 2f * Vector3.up, transform.right * FacingAxis, Color.green, Time.deltaTime);
         Debug.DrawRay(transform.position + 2f * Vector3.up, MoveVector, Color.blue, Time.deltaTime);
+
+        // Stuck Timer
+        if ((transform.position - LastPosition).sqrMagnitude > StuckDistanceSqr)
+        {
+            StuckTime = MaxStuckTime;
+            LastPosition = transform.position;
+            RepairBotComing = false;
+        }
+        else
+        {
+            StuckTime -= Time.deltaTime;
+            if (StuckTime < 0f && RepairBotComing == false)
+            {
+                RepairBot.CallStuckWhatsit(gameObject);
+                RepairBotComing = true;
+            }
+        }
+
+        // Ugly Hack to fic falling off the map
+        if (transform.position.y < -10f)
+        {
+            RB.velocity = Vector3.zero;
+        }
     }
 
     public void SlowDown(float TargetSpeed)

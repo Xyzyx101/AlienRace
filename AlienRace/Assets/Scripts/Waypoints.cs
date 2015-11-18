@@ -6,12 +6,6 @@ public class Waypoints : MonoBehaviour
 
     public Transform[] Points;
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
     void OnDrawGizmos()
     {
         for (int i = 0; i < Points.Length; ++i)
@@ -77,5 +71,21 @@ public class Waypoints : MonoBehaviour
         {
             return start + t * lineVector;
         }
+    }
+
+    public Vector3 GetDropOffPoint(Vector3 carLoc)
+    {
+        float minDistanceSqr = float.PositiveInfinity;
+        Vector3 dropOffPoint = Vector3.zero;
+        for (int i = 0; i < Points.Length; ++i)
+        {
+            float distSqr = (carLoc - Points[i].transform.position).sqrMagnitude;
+            if (distSqr < minDistanceSqr)
+            {
+                minDistanceSqr = distSqr;
+                dropOffPoint = Points[i].transform.position;
+            }
+        }
+        return dropOffPoint;
     }
 }
