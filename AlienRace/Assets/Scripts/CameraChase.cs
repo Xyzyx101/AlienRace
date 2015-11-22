@@ -32,8 +32,7 @@ public class CameraChase : MonoBehaviour
     {
         float speed = RB.velocity.magnitude;
         float speedFactor = Mathf.Clamp01(speed / SpeedRange);
-        MyTiltShift.blurArea = speedFactor * 15f;
-        MyTiltShift.maxBlurSize = speedFactor * 25f;
+        MyTiltShift.maxBlurSize = speedFactor;
 
         Vector3 targetPos = TargetCar.position + TargetCar.forward * Mathf.Lerp(MinTargetOffset, MaxTargetOffset, speedFactor);
         Quaternion newRot = Quaternion.LookRotation(targetPos - transform.position, Vector3.up);

@@ -16,6 +16,7 @@ public class Car : MonoBehaviour
     public float EngineForce;
     public float NormalizedUpForce;
     public float MainThrustForce;
+    public float SidewaysThrustForce;
 
     public float TurnAmount;
     public Vector3 StabilizationVector;
@@ -96,7 +97,7 @@ public class Car : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 10, groundMask))
             {
                 Vector3 point = AllEngines[i].position;
-                float forceMag = EngineForce * 1f / (hit.distance * hit.distance);
+                float forceMag = EngineForce * 1f / Mathf.Pow(hit.distance, 1.5f);
                 Vector3 force = AllEngines[i].up * forceMag;
                 Forces.Add(new CarForce(force, point));
 
@@ -124,6 +125,9 @@ public class Car : MonoBehaviour
             // Main Engine Thrust
             float forwardForce = MainThrustForce * moveVector.z;
             Forces.Add(new CarForce(transform.forward * forwardForce, COG.position));
+
+            float sidewaysForce = SidewaysThrustForce * moveVector.x;
+            Forces.Add(new CarForce(transform.right * sidewaysForce, COG.position));
 
             SplashParticles.enableEmission = groundHit.collider.tag == "PitWater";
         }
