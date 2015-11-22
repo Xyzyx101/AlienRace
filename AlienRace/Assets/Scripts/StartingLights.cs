@@ -12,33 +12,43 @@ public class StartingLights : MonoBehaviour
 
     private float Timer;
     private Material LightMat;
+    private bool RaceStarted;
+
     void Start()
     {
         Timer = StartTime;
+        RaceStarted = false;
+        SetLightColor(Color.black);
     }
 
     // Update is called once per frame
     void Update()
     {
         Timer -= Time.deltaTime;
-        SetLightColor(Color.gray);
-        if (Timer < -10f)
+        if (RaceStarted)
         {
-            DestroyLights();
-            Destroy(this);
+            if (Timer < -10f)
+            {
+                DestroyLights();
+                Destroy(this);
+            }
         }
-        else if (Timer < 0f)
+        else
         {
-            SetLightColor(Green);
-            Manager.StartRace();
-        }
-        else if (Timer < 2f)
-        {
-            SetLightColor(Yellow);
-        }
-        else if (Timer < 4f)
-        {
-            SetLightColor(Red);
+            if (Timer < 0f)
+            {
+                SetLightColor(Green);
+                Manager.StartRace();
+                RaceStarted = true;
+            }
+            else if (Timer < 2f)
+            {
+                SetLightColor(Yellow);
+            }
+            else if (Timer < 4f)
+            {
+                SetLightColor(Red);
+            }
         }
     }
 

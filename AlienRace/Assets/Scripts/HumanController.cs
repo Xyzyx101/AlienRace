@@ -28,6 +28,7 @@ public class HumanController : Controller
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("v:" + Input.GetAxis("Vertical") + " h:" + Input.GetAxis("Horizontal"));
         FacingAxis = Input.GetAxis("Facing");
         MoveVector = Input.GetAxis("Vertical") * Vector3.forward + Input.GetAxis("Horizontal") * Vector3.right;
 
