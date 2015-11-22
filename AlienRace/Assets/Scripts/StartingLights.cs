@@ -3,46 +3,58 @@ using System.Collections;
 
 public class StartingLights : MonoBehaviour
 {
-    public float StartTime = 5f;
+    public float StartTime = 6f;
     public RaceManager Manager;
+    public Light[] Lights;
+    public Color Red;
+    public Color Yellow;
+    public Color Green;
+
     private float Timer;
     private Material LightMat;
-    public float PingPongTimer = 20;
-    private float CurrentPingPongTimer;
-    // Use this for initialization
     void Start()
     {
         Timer = StartTime;
-        LightMat = GetComponent<Renderer>().material;
-        LightMat.shader = Shader.Find("Standard");
-        LightMat.color = Color.grey;
-        CurrentPingPongTimer = PingPongTimer;
     }
 
     // Update is called once per frame
     void Update()
     {
         Timer -= Time.deltaTime;
-        float emission = Mathf.PingPong(Time.time * CurrentPingPongTimer, 1.0f);
-        Color baseColor = Color.grey;
-        if (Timer < 0f)
+        SetLightColor(Color.gray);
+        if (Timer < -10f)
         {
-            baseColor = Color.green;
-            emission = 1f;
-            Manager.StartRace();
+            DestroyLights();
             Destroy(this);
         }
-        else if (Timer < 1f)
+        else if (Timer < 0f)
         {
-            baseColor = Color.yellow;
-            CurrentPingPongTimer = PingPongTimer * 0.25f;
+            SetLightColor(Green);
+            Manager.StartRace();
         }
-        else if (Timer < 3f)
+        else if (Timer < 2f)
         {
-            baseColor = Color.red;
-            CurrentPingPongTimer = PingPongTimer * 0.5f;
+            SetLightColor(Yellow);
         }
-        Color finalColor = baseColor * Mathf.LinearToGammaSpace(emission);
-        LightMat.SetColor("_EmissionColor", finalColor);
+        else if (Timer < 4f)
+        {
+            SetLightColor(Red);
+        }
+    }
+
+    void SetLightColor(Color color)
+    {
+        for (int i = 0; i < Lights.Length; ++i)
+        {
+            Lights[i].color = color;
+        }
+    }
+
+    void DestroyLights()
+    {
+        for (int i = 0; i < Lights.Length; ++i)
+        {
+            Destroy(Lights[i].gameObject);
+        }
     }
 }

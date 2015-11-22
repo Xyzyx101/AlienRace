@@ -153,6 +153,7 @@ public class Car : MonoBehaviour
     public void Frozen()
     {
         RB.constraints = RigidbodyConstraints.FreezeAll;
+        RB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePosition;
     }
 
     public void Mobile()

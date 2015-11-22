@@ -8,9 +8,9 @@ public class RaceManager : MonoBehaviour
     public int Laps;
     public CarData[] data;
     public Checkpoint[] Checkpoints;
+    public Checkpoint FinishLine;
     private float StartRaceTime;
 
-    // Use this for initialization
     void Start()
     {
         data = new CarData[Cars.Length];
@@ -21,7 +21,6 @@ public class RaceManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -34,6 +33,7 @@ public class RaceManager : MonoBehaviour
             Cars[i].Mobile();
         }
         StartRaceTime = Time.time;
+        FinishLine.SetSign(global::Checkpoint.CheckpointSign.Race);
     }
 
     public void Checkpoint(string CarTag, int Checkpoint)
@@ -57,6 +57,17 @@ public class RaceManager : MonoBehaviour
                     }
                     data[i].LapTimes.Add(lapTime);
                     data[i].PassedCheckpoint = 0;
+                    if (CarTag == "PlayerCar")
+                    {
+                        if (data[i].LapTimes.Count == 1)
+                        {
+                            FinishLine.SetSign(global::Checkpoint.CheckpointSign.Lap2);
+                        }
+                        else if (data[i].LapTimes.Count == 2)
+                        {
+                            FinishLine.SetSign(global::Checkpoint.CheckpointSign.Finish);
+                        }
+                    }
                     Debug.Log(CarTag + "completed lap " + data[i].LapsComplete + " in " + ParseTime(lapTime));
                 }
                 if (data[i].LapsComplete == Laps)

@@ -1,0 +1,125 @@
+fileFormatVersion: 2
+guid: 92a8cfd4ee714044483e46ee8758dd52
+timeCreated: 1447970859
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Camera
+    100002: Directional Light
+    100004: Lights_2
+    100006: Metal Scratched 01.lxp
+    100008: Metal Scratched 01.lxp_3
+    100010: //RootNode
+    100012: StartLine
+    100014: StartLine_MeshPart0
+    100016: StartLine_MeshPart1
+    100018: Texture Group
+    100020: Checkpoint
+    100022: Finish
+    100024: Go
+    100026: Lap 1
+    100028: Lap 2
+    400000: Camera
+    400002: Directional Light
+    400004: Lights_2
+    400006: Metal Scratched 01.lxp
+    400008: Metal Scratched 01.lxp_3
+    400010: //RootNode
+    400012: StartLine
+    400014: StartLine_MeshPart0
+    400016: StartLine_MeshPart1
+    400018: Texture Group
+    400020: Checkpoint
+    400022: Finish
+    400024: Go
+    400026: Lap 1
+    400028: Lap 2
+    2300000: Lights_2
+    2300002: StartLine_MeshPart0
+    2300004: StartLine_MeshPart1
+    2300006: Checkpoint
+    2300008: Finish
+    2300010: Go
+    2300012: Lap 1
+    2300014: Lap 2
+    3300000: Lights_2
+    3300002: StartLine_MeshPart0
+    3300004: StartLine_MeshPart1
+    3300006: Checkpoint
+    3300008: Finish
+    3300010: Go
+    3300012: Lap 1
+    3300014: Lap 2
+    4300000: StartLine_MeshPart0
+    4300002: StartLine_MeshPart1
+    4300004: Lights_2
+    4300006: Checkpoint
+    4300008: Finish
+    4300010: Go
+    4300012: Lap 1
+    4300014: Lap 2
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 3
+    addColliders: 0
+    importBlendShapes: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 20
+    splitTangentsAcrossUV: 1
+    normalImportMode: 1
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -65,7 +65,7 @@ public class StuckWhatsit : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag != Target.tag)
+        if (TargetCar == null || other.tag != Target.tag)
         {
             return;
         }
