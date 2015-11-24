@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Barnacle
-  m_Shader: {fileID: 10600, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 10606, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 5
   m_CustomRenderQueue: 2000
@@ -20,14 +20,14 @@ Material:
           name: _MainTex
         second:
           m_Texture: {fileID: 2800000, guid: c6ad3986ab7cfc7478e88b291b51f279, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Scale: {x: 50, y: 50}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
           m_Texture: {fileID: 2800000, guid: 0b1ff00189d806f41b2d682a805b755e, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Scale: {x: 50, y: 50}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -83,21 +83,21 @@ Material:
           name: _TranslucencyMap
         second:
           m_Texture: {fileID: 2800000, guid: 7f0abb0fe5de9f344a27560594294ed1, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Scale: {x: 50, y: 50}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _GlossMap
         second:
           m_Texture: {fileID: 2800000, guid: 9373ca5182e75174792487c275cb3526, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Scale: {x: 50, y: 50}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _ShadowOffset
         second:
           m_Texture: {fileID: 2800000, guid: d20022085690e574dbb767302c38cc8f, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Scale: {x: 50, y: 50}
           m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
@@ -184,7 +184,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: 1, g: 1, b: 1, a: .559000015}
       data:
         first:
           name: _SpecColor
@@ -200,4 +200,4 @@ Material:
       data:
         first:
           name: _TranslucencyColor
-        second: {r: .730000019, g: .850000024, b: .409999996, a: 1}
+        second: {r: .900847137, g: .587964952, b: .91911763, a: 1}
