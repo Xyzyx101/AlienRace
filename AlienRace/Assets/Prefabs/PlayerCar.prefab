@@ -112,6 +112,7 @@ GameObject:
   - 4: {fileID: 485354}
   - 198: {fileID: 19867170}
   - 199: {fileID: 19933102}
+  - 82: {fileID: 8217764}
   m_Layer: 0
   m_Name: Spray
   m_TagString: Untagged
@@ -287,6 +288,7 @@ GameObject:
   - 65: {fileID: 6584440}
   - 114: {fileID: 11413854}
   - 82: {fileID: 8260354}
+  - 81: {fileID: 8150170}
   m_Layer: 10
   m_Name: PlayerCar
   m_TagString: PlayerCar
@@ -674,7 +676,7 @@ MeshRenderer:
   m_ImportantGI: 0
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
+  m_LightmapParameters: {fileID: 15200, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!23 &2345600
@@ -801,6 +803,84 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.16999996, y: .310000002, z: 1.75}
   m_Center: {x: 0, y: 0, z: .270000011}
+--- !u!81 &8150170
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179898}
+  m_Enabled: 1
+--- !u!82 &8217764
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131592}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24311574, guid: 2461ce1082602004ea21c6a7b333efbc,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 16cdfabe696877f40b0265c5b051dc20, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1.54999995
+  MinDistance: 1
+  MaxDistance: 10
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1.10000002
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!82 &8260354
 AudioSource:
   m_ObjectHideFlags: 1
@@ -813,9 +893,9 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 57839b904c679494aa3e9de31a796daa, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: .5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   Priority: 128
@@ -846,7 +926,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -903,6 +983,8 @@ MonoBehaviour:
   COG: {fileID: 493232}
   AeroDynamicResistance: {x: 60, y: 50, z: 10}
   SplashParticles: {fileID: 19867170}
+  SplashSound: {fileID: 8217764}
+  SplashDelay: .5
 --- !u!114 &11413854
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -136,7 +136,7 @@ Material:
       data:
         first:
           name: _Cutoff
-        second: .300000012
+        second: 1
       data:
         first:
           name: _SquashAmount
@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Name: Tree Data
   m_EditorClassIdentifier: 
   _uniqueID: 447
-  materialHash: 864c986aef51c319cf79051e43112d2a215482368
+  materialHash: bc3d17ca23a34277e737c9d8e025c615215482368
   root:
     _uniqueID: 1
     seed: 1234

@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 646b5bc27a658f447b1d929fd5ffbd70
+timeCreated: 1448292486
+licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
@@ -10,7 +12,8 @@ MonoImporter:
   - shaderFXAAPreset3: {fileID: 4800000, guid: c182fa94a5a0a4c02870641efcd38cd5, type: 3}
   - shaderFXAAII: {fileID: 4800000, guid: cd5b323dcc592457790ff18b528f5e67, type: 3}
   - shaderFXAAIII: {fileID: 4800000, guid: c547503fff0e8482ea5793727057041c, type: 3}
-  executionOrder: 0
+  executionOrder: 350
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
+  assetBundleVariant: 

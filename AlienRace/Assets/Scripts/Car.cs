@@ -27,6 +27,9 @@ public class Car : MonoBehaviour
     public Vector3 AeroDynamicResistance;
 
     public ParticleSystem SplashParticles;
+    public AudioSource SplashSound;
+    public float SplashDelay;
+    private float SplashDelayTimer;
 
     private Controller Controller;
     private Rigidbody RB;
@@ -129,7 +132,20 @@ public class Car : MonoBehaviour
             float sidewaysForce = SidewaysThrustForce * moveVector.x;
             Forces.Add(new CarForce(transform.right * sidewaysForce, COG.position));
 
-            SplashParticles.enableEmission = groundHit.collider.tag == "PitWater";
+            if (groundHit.collider.tag == "PitWater")
+            {
+                SplashParticles.enableEmission = true;
+                SplashDelayTimer -= Time.deltaTime;
+                if (SplashDelayTimer < 0f)
+                {
+                    SplashSound.Play((ulong)(Random.value * 0.5f));
+                    SplashDelayTimer = SplashDelay;
+                }
+            }
+            else
+            {
+                SplashParticles.enableEmission = false;
+            }
         }
 
         // Aerodynamic Force

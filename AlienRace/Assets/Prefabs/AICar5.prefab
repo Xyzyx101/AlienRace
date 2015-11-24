@@ -44,6 +44,7 @@ GameObject:
   - 4: {fileID: 490922}
   - 198: {fileID: 19837074}
   - 199: {fileID: 19957966}
+  - 82: {fileID: 8258496}
   m_Layer: 0
   m_Name: Spray (1)
   m_TagString: Untagged
@@ -135,7 +136,7 @@ GameObject:
   - 82: {fileID: 8229760}
   m_Layer: 10
   m_Name: AICar5
-  m_TagString: AICar5
+  m_TagString: AICar3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -438,7 +439,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 141080}
   m_LocalRotation: {x: 0, y: -.491288036, z: 0, w: .87099719}
-  m_LocalPosition: {x: 192.75, y: 15.5, z: 220.940002}
+  m_LocalPosition: {x: 187.369995, y: 15.5, z: 220.009995}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 456042}
@@ -662,7 +663,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: d9684c2e06438ae46a45b59e3766ad2e, type: 2}
+  - {fileID: 2100000, guid: 65082c1e6e9d80b4b8415b9818e9e229, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -871,6 +872,77 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!82 &8258496
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122692}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24311574, guid: 2461ce1082602004ea21c6a7b333efbc,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 16cdfabe696877f40b0265c5b051dc20, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 10
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1.10000002
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11476200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -932,6 +1004,8 @@ MonoBehaviour:
   COG: {fileID: 432266}
   AeroDynamicResistance: {x: 100, y: 50, z: 10}
   SplashParticles: {fileID: 19837074}
+  SplashSound: {fileID: 8258496}
+  SplashDelay: .25
 --- !u!135 &13525156
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1250,7 +1324,7 @@ ParticleSystem:
       minMaxState: 0
     gravityModifier: 2
     inheritVelocity: 0
-    maxNumParticles: 20
+    maxNumParticles: 100
   ShapeModule:
     serializedVersion: 2
     enabled: 1
@@ -1269,7 +1343,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 100
+      scalar: 20
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9494,7 +9568,7 @@ ParticleSystem:
         rgba: 4294967295
       maxColor:
         serializedVersion: 2
-        rgba: 4288827866
+        rgba: 933384666
       minMaxState: 0
     startSize:
       scalar: 3
@@ -9544,7 +9618,7 @@ ParticleSystem:
       minMaxState: 3
     gravityModifier: 0
     inheritVelocity: 0
-    maxNumParticles: 30
+    maxNumParticles: 100
   ShapeModule:
     serializedVersion: 2
     enabled: 1
@@ -9590,7 +9664,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    cnt0: 1000
+    cnt0: 15
     cnt1: 30
     cnt2: 30
     cnt3: 30
@@ -12837,6 +12911,18 @@ Prefab:
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Splash
+      value: 
+      objectReference: {fileID: 122692}
+    - target: {fileID: 0}
+      propertyPath: SplashDelay
+      value: .25
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SplashSound
+      value: 
+      objectReference: {fileID: 8258496}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 141080}
